@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Presto disponibile — Gates of Chaos</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Inter:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --smoke:#08090c;--ember:#d8382b;--steel:#3f7fd6;--bone:#eae6dc;--muted:#8b8a94;--line:rgba(216,56,43,.16);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  background:var(--smoke);color:var(--bone);font-family:'Inter',system-ui,sans-serif;font-weight:300;
+  min-height:100vh;display:flex;flex-direction:column;-webkit-font-smoothing:antialiased;
+}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+.site-bg{position:fixed;inset:0;z-index:0;pointer-events:none;background:url('images/site-bg.jpg') center/cover no-repeat}
+.site-bg::after{content:"";position:absolute;inset:0;background:rgba(6,7,9,.55)}
+header{position:relative;z-index:5;padding:22px 24px;text-align:center}
+header img{height:32px;margin:0 auto}
+main{position:relative;z-index:2;flex:1;display:flex;align-items:center;justify-content:center;padding:40px 24px}
+.box{max-width:480px;text-align:center}
+.eyebrow{font-family:'Space Mono';font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;color:var(--steel);display:block;margin-bottom:16px}
+h1{font-family:'Cinzel';font-size:clamp(1.8rem,5vw,2.6rem);font-weight:700;margin-bottom:16px}
+p{color:var(--bone);font-size:1rem;margin-bottom:8px}
+.actions{display:flex;gap:14px;justify-content:center;margin-top:30px;flex-wrap:wrap}
+.btn{
+  font-family:'Space Mono';font-size:.76rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  padding:14px 28px;border-radius:2px;border:1px solid var(--line);color:var(--bone);transition:all .25s;
+}
+.btn:hover{border-color:var(--ember);color:var(--ember)}
+.btn.primary{background:var(--ember);border-color:var(--ember);color:var(--smoke)}
+.btn.primary:hover{background:#e8574a;color:var(--smoke)}
+footer{position:relative;z-index:2;padding:24px;text-align:center;color:var(--muted);font-family:'Space Mono';font-size:.68rem}
+
+.cookie-banner{
+  position:fixed;left:0;right:0;bottom:0;z-index:80;
+  background:rgba(10,11,14,.97);backdrop-filter:blur(10px);
+  border-top:1px solid var(--line);
+  padding:18px 24px;
+  display:flex;align-items:center;justify-content:center;gap:20px;flex-wrap:wrap;
+  transform:translateY(110%);transition:transform .4s ease;
+}
+.cookie-banner.show{transform:translateY(0)}
+.cookie-banner p{color:var(--muted);font-size:.84rem;max-width:640px;line-height:1.5}
+.cookie-banner p a{color:var(--steel)}
+.cookie-banner button{
+  font-family:'Space Mono';font-size:.76rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  padding:11px 26px;border-radius:2px;border:1px solid var(--ember);background:var(--ember);color:var(--smoke);
+  cursor:pointer;flex-shrink:0;
+}
+
+</style>
+</head>
+<body>
+<div class="site-bg"></div>
+<header><a href="index.html"><img src="images/logo-nav.png" alt="Gates of Chaos"></a></header>
+<main>
+  <div class="box">
+    <span class="eyebrow">Canale in arrivo</span>
+    <h1 id="title">Presto disponibile</h1>
+    <p id="body">Questo canale ufficiale Gates of Chaos è in arrivo.</p>
+    <p>Nel frattempo trovi la band su Facebook e Instagram.</p>
+    <div class="actions">
+      <a href="index.html#contact" class="btn primary">Vai ai social attivi</a>
+      <a href="index.html" class="btn">Torna alla home</a>
+    </div>
+  </div>
+</main>
+<footer>© 2026 Gates of Chaos</footer>
+<script>
+const cookieBanner = document.getElementById('cookieBanner');
+const cookieAccept = document.getElementById('cookieAccept');
+if(cookieBanner && !localStorage.getItem('gocCookieConsent')){
+  setTimeout(()=>cookieBanner.classList.add('show'), 600);
+}
+if(cookieAccept){
+  cookieAccept.addEventListener('click', ()=>{
+    localStorage.setItem('gocCookieConsent','1');
+    cookieBanner.classList.remove('show');
+  });
+}
+
+const params = new URLSearchParams(location.search);
+const p = params.get('p');
+if(p){
+  document.getElementById('title').textContent = p + ' — presto disponibile';
+  document.getElementById('body').textContent = 'Il canale ufficiale Gates of Chaos su ' + p + ' è in arrivo.';
+  document.title = p + ' — presto disponibile — Gates of Chaos';
+}
+</script>
+
+<div class="cookie-banner" id="cookieBanner">
+  <p>Usiamo Google Fonts e, solo se li attivi, i player Spotify integrati. Nessun dato di tracciamento viene raccolto. <a href="privacy.html">Scopri di più</a></p>
+  <button id="cookieAccept">Ho capito</button>
+</div>
+
+</body>
+</html>
