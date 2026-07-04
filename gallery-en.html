@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gallery — Gates of Chaos</title>
+<meta name="description" content="Live photos and official artwork from Gates of Chaos.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Inter:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --smoke:#08090c;--surface:#12141a;--ember:#c9a24b;--ember-dim:#dbb45c;--steel:#3f7fd6;--bone:#eae6dc;--muted:#8b8a94;--line:rgba(201,162,75,.28);--maxw:1180px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--smoke);color:var(--bone);font-family:'Inter',system-ui,sans-serif;font-weight:300;line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+.site-bg{position:fixed;inset:0;z-index:0;pointer-events:none;background:url('images/site-bg.jpg') center/cover no-repeat}
+@media(max-width:700px) and (orientation:portrait){
+  .site-bg{background-image:url('images/site-bg-vertical.jpg')}
+}
+.site-bg::after{content:"";position:absolute;inset:0;background:rgba(6,7,9,.5)}
+
+header{position:relative;z-index:20;border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;justify-content:space-between;padding:18px 24px;max-width:var(--maxw);margin:0 auto}
+.brand img{height:34px;width:auto;display:block}
+.nav-links{display:flex;gap:30px;align-items:center}
+.nav-links a{font-size:.8rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);transition:color .25s}
+.nav-links a:hover{color:var(--ember)}
+.nav-links a.current{color:var(--ember)}
+.burger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:0;padding:6px}
+.burger span{width:24px;height:2px;background:var(--bone);transition:.3s}
+
+main{position:relative;z-index:2}
+.hero-mini{padding:90px 0 50px;text-align:center}
+.eyebrow{font-family:'Space Mono';font-size:.72rem;letter-spacing:.35em;text-transform:uppercase;color:var(--steel);display:block;margin-bottom:16px}
+.hero-mini h1{font-family:'Cinzel';font-size:clamp(2.2rem,6vw,3.4rem);font-weight:700;letter-spacing:.03em}
+.hero-mini p{color:var(--muted);max-width:520px;margin:16px auto 0;font-size:.98rem}
+
+.gallery-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:14px;padding-bottom:70px;
+}
+.gallery-grid figure{
+  position:relative;aspect-ratio:1;overflow:hidden;border-radius:3px;border:1px solid var(--line);cursor:pointer;
+}
+.gallery-grid img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease,filter .5s ease;filter:grayscale(.15)}
+.gallery-grid figure:hover img{transform:scale(1.06);filter:grayscale(0)}
+.gallery-grid figure figcaption{
+  position:absolute;left:0;right:0;bottom:0;padding:14px;font-family:'Space Mono';font-size:.68rem;
+  letter-spacing:.08em;text-transform:uppercase;color:var(--bone);
+  background:linear-gradient(180deg,transparent,rgba(8,9,12,.85));opacity:0;transition:opacity .3s;
+}
+.gallery-grid figure:hover figcaption{opacity:1}
+
+.gallery-note{text-align:center;color:var(--muted);font-family:'Space Mono';font-size:.78rem;padding-bottom:80px;margin-top:-40px}
+
+/* lightbox */
+.lightbox{
+  position:fixed;inset:0;z-index:90;background:rgba(6,7,9,.96);
+  display:none;align-items:center;justify-content:center;padding:40px;
+}
+.lightbox.open{display:flex}
+.lightbox img{max-width:90vw;max-height:82vh;object-fit:contain;border:1px solid var(--line)}
+.lightbox-close{position:absolute;top:24px;right:28px;color:var(--bone);font-size:1.8rem;background:none;border:0;cursor:pointer;line-height:1}
+.lightbox-nav{position:absolute;top:50%;transform:translateY(-50%);background:none;border:1px solid var(--line);color:var(--bone);width:44px;height:44px;border-radius:50%;cursor:pointer;font-size:1.2rem}
+.lightbox-nav:hover{border-color:var(--ember);color:var(--ember)}
+.lightbox-prev{left:20px}
+.lightbox-next{right:20px}
+.lightbox-caption{position:absolute;bottom:24px;left:0;right:0;text-align:center;font-family:'Space Mono';font-size:.76rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+
+footer{position:relative;z-index:2;padding:44px 24px;text-align:center;border-top:1px solid var(--line)}
+footer .meta{color:var(--muted);font-family:'Space Mono';font-size:.72rem;letter-spacing:.08em}
+
+@media(max-width:900px){
+  .gallery-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:760px){
+  .nav-links{
+    position:fixed;top:0;right:-100%;height:100vh;width:74%;max-width:320px;
+    flex-direction:column;justify-content:center;gap:34px;
+    background:rgba(12,11,10,.98);backdrop-filter:blur(16px);border-left:1px solid var(--line);
+    transition:right .4s cubic-bezier(.4,0,.2,1);z-index:55;
+  }
+  .nav-links.open{right:0}
+  .nav-links a{font-size:1rem}
+  .burger{display:flex;z-index:60}
+  .burger.x span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+  .burger.x span:nth-child(2){opacity:0}
+  .burger.x span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+  .lightbox-nav{width:38px;height:38px}
+  .lightbox-prev{left:8px}
+  .lightbox-next{right:8px}
+}
+
+.cookie-banner{
+  position:fixed;left:0;right:0;bottom:0;z-index:80;
+  background:rgba(10,11,14,.97);backdrop-filter:blur(10px);
+  border-top:1px solid var(--line);
+  padding:18px 24px;
+  display:flex;align-items:center;justify-content:center;gap:20px;flex-wrap:wrap;
+  transform:translateY(110%);transition:transform .4s ease;
+}
+.cookie-banner.show{transform:translateY(0)}
+.cookie-banner p{color:var(--muted);font-size:.84rem;max-width:640px;line-height:1.5}
+.cookie-banner p a{color:var(--steel)}
+.cookie-banner button{
+  font-family:'Space Mono';font-size:.76rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  padding:11px 26px;border-radius:2px;border:1px solid var(--ember);background:var(--ember);color:var(--smoke);
+  cursor:pointer;flex-shrink:0;
+}
+
+</style>
+</head>
+<body>
+<div class="site-bg"></div>
+
+<header>
+  <nav class="nav">
+    <a href="index-en.html" class="brand" aria-label="Gates of Chaos — home"><img src="images/logo-nav.png" alt="Gates of Chaos"></a>
+    <div class="nav-links" id="navlinks">
+      <a href="index-en.html#tour">Live</a>
+      <a href="index-en.html#news">News</a>
+      <a href="index-en.html#music">Music</a>
+      <a href="index-en.html#band">Band</a>
+      <a href="merch-en.html">Merch</a>
+      <a href="index-en.html#social">Social</a>
+      <a href="index-en.html#contact">Booking</a>
+      <a href="gallery.html" class="lang-switch">IT</a>
+    </div>
+    <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </nav>
+</header>
+
+<main>
+  <div class="hero-mini">
+    <span class="eyebrow">Media</span>
+    <h1>Gallery</h1>
+    <p>Live shots and official artwork. Click on a photo to enlarge it.</p>
+  </div>
+
+  <div class="wrap">
+    <div class="gallery-grid" id="galleryGrid">
+      <figure data-full="images/live-vocals.jpg" data-caption="Marco De Angeli — vocals">
+        <img src="images/live-vocals.jpg" alt="Marco De Angeli on stage"><figcaption>Vocals — live</figcaption>
+      </figure>
+      <figure data-full="images/live-guitar.jpg" data-caption="Marco Politi — guitar">
+        <img src="images/live-guitar.jpg" alt="Marco Politi on stage"><figcaption>Guitar — live</figcaption>
+      </figure>
+      <figure data-full="images/live-keys.jpg" data-caption="Michael Siani — keyboard">
+        <img src="images/live-keys.jpg" alt="Michael Siani on stage"><figcaption>Keyboard — live</figcaption>
+      </figure>
+      <figure data-full="images/live-bass.jpg" data-caption="Tiziano Chiappi — bass">
+        <img src="images/live-bass.jpg" alt="Tiziano Chiappi on stage"><figcaption>Bass — live</figcaption>
+      </figure>
+      <figure data-full="images/live-drums.jpg" data-caption="Alessio Fantoni — drums">
+        <img src="images/live-drums.jpg" alt="Alessio Fantoni on stage"><figcaption>Drums — live</figcaption>
+      </figure>
+      <figure data-full="images/live-group.jpg" data-caption="On stage, together">
+        <img src="images/live-group.jpg" alt="Gates of Chaos live, group photo"><figcaption>Live together</figcaption>
+      </figure>
+      <figure data-full="images/cover-invictus.jpg" data-caption="Artwork — Invictus EP (2023)">
+        <img src="images/cover-invictus.jpg" alt="Invictus cover"><figcaption>Artwork — Invictus</figcaption>
+      </figure>
+      <figure data-full="images/cover-outofhell.jpg" data-caption="Artwork — Out of Hell EP (2025)">
+        <img src="images/cover-outofhell.jpg" alt="Out of Hell cover"><figcaption>Artwork — Out of Hell</figcaption>
+      </figure>
+      <figure data-full="images/gallery-01-full.jpg" data-caption="Backstage together — photo by Agnese Ruggeri">
+        <img src="images/gallery-01.jpg" alt="Gates of Chaos backstage"><figcaption>Backstage</figcaption>
+      </figure>
+      <figure data-full="images/gallery-02-full.jpg" data-caption="Live on stage — photo by Agnese Ruggeri">
+        <img src="images/gallery-02.jpg" alt="Gates of Chaos live on stage"><figcaption>Live on stage</figcaption>
+      </figure>
+      <figure data-full="images/gallery-03-full.jpg" data-caption="Guitar — photo by Riccardo Arena">
+        <img src="images/gallery-03.jpg" alt="Marco Politi live"><figcaption>Guitar — live</figcaption>
+      </figure>
+      <figure data-full="images/gallery-04-full.jpg" data-caption="Vocals — photo by Riccardo Arena">
+        <img src="images/gallery-04.jpg" alt="Marco De Angeli live"><figcaption>Vocals — live</figcaption>
+      </figure>
+      <figure data-full="images/gallery-05-full.jpg" data-caption="Keyboard — photo by Riccardo Arena">
+        <img src="images/gallery-05.jpg" alt="Michael Siani live"><figcaption>Keyboard — live</figcaption>
+      </figure>
+      <figure data-full="images/gallery-06-full.jpg" data-caption="Backing vocals — photo by Riccardo Arena">
+        <img src="images/gallery-06.jpg" alt="Gates of Chaos backing vocals live"><figcaption>Backing vocals — live</figcaption>
+      </figure>
+      <figure data-full="images/gallery-07-full.jpg" data-caption="Drums — photo by Riccardo Arena">
+        <img src="images/gallery-07.jpg" alt="Alessio Fantoni live"><figcaption>Drums — live</figcaption>
+      </figure>
+      <figure data-full="images/gallery-08-full.jpg" data-caption="Vocals — photo by Riccardo Arena">
+        <img src="images/gallery-08.jpg" alt="Marco De Angeli live close-up"><figcaption>Vocals — close-up</figcaption>
+      </figure>
+      <figure data-full="images/gallery-09-full.jpg" data-caption="Bass — photo by Agnese Ruggeri">
+        <img src="images/gallery-09.jpg" alt="Tiziano Chiappi live"><figcaption>Bass — live</figcaption>
+      </figure>
+      <figure data-full="images/gallery-10-full.jpg" data-caption="Vocals — photo by Agnese Ruggeri">
+        <img src="images/gallery-10.jpg" alt="Marco De Angeli live close-up"><figcaption>Vocals — close-up</figcaption>
+      </figure>
+      <figure data-full="images/gallery-11-full.jpg" data-caption="Guitar and vocals — photo by Agnese Ruggeri">
+        <img src="images/gallery-11.jpg" alt="Guitar and vocals live together"><figcaption>Together on stage</figcaption>
+      </figure>
+      <figure data-full="images/gallery-12-full.jpg" data-caption="Vocals — photo by Agnese Ruggeri">
+        <img src="images/gallery-12.jpg" alt="Marco De Angeli live profile"><figcaption>Vocals — profile</figcaption>
+      </figure>
+      <figure data-full="images/gallery-13-full.jpg" data-caption="Keyboard — photo by Agnese Ruggeri">
+        <img src="images/gallery-13.jpg" alt="Michael Siani live profile"><figcaption>Keyboard — profile</figcaption>
+      </figure>
+      <figure data-full="images/gallery-14-full.jpg" data-caption="Guitar — photo by Agnese Ruggeri">
+        <img src="images/gallery-14.jpg" alt="Marco Politi backstage"><figcaption>Guitar — backstage</figcaption>
+      </figure>
+      <figure data-full="images/gallery-15-full.jpg" data-caption="Drums — photo by Agnese Ruggeri">
+        <img src="images/gallery-15.jpg" alt="Alessio Fantoni portrait"><figcaption>Drums — portrait</figcaption>
+      </figure>
+      <figure data-full="images/gallery-16-full.jpg" data-caption="Vocals — photo by Agnese Ruggeri">
+        <img src="images/gallery-16.jpg" alt="Marco De Angeli close-up on microphone"><figcaption>Vocals — close-up</figcaption>
+      </figure>
+    </div>
+    <p class="gallery-note">Gallery under construction — new live shots coming after our next shows.</p>
+  </div>
+</main>
+
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" id="lbClose" aria-label="Close">&times;</button>
+  <button class="lightbox-nav lightbox-prev" id="lbPrev" aria-label="Previous">&#8249;</button>
+  <img id="lbImg" src="" alt="">
+  <button class="lightbox-nav lightbox-next" id="lbNext" aria-label="Next">&#8250;</button>
+  <div class="lightbox-caption" id="lbCaption"></div>
+</div>
+
+<footer>
+  <div class="meta">© 2026 Gates of Chaos — All rights reserved</div>
+</footer>
+
+<script>
+const cookieBanner = document.getElementById('cookieBanner');
+const cookieAccept = document.getElementById('cookieAccept');
+if(cookieBanner && !localStorage.getItem('gocCookieConsent')){
+  setTimeout(()=>cookieBanner.classList.add('show'), 600);
+}
+if(cookieAccept){
+  cookieAccept.addEventListener('click', ()=>{
+    localStorage.setItem('gocCookieConsent','1');
+    cookieBanner.classList.remove('show');
+  });
+}
+
+const burger=document.getElementById('burger');
+const links=document.getElementById('navlinks');
+burger.addEventListener('click',()=>{burger.classList.toggle('x');links.classList.toggle('open')});
+links.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{burger.classList.remove('x');links.classList.remove('open')}));
+
+// lightbox
+const figures = Array.from(document.querySelectorAll('#galleryGrid figure'));
+const lightbox = document.getElementById('lightbox');
+const lbImg = document.getElementById('lbImg');
+const lbCaption = document.getElementById('lbCaption');
+let currentIndex = 0;
+
+function openLightbox(i){
+  currentIndex = i;
+  lbImg.src = figures[i].dataset.full;
+  lbCaption.textContent = figures[i].dataset.caption || '';
+  lightbox.classList.add('open');
+}
+function closeLightbox(){ lightbox.classList.remove('open'); }
+function showDelta(d){
+  currentIndex = (currentIndex + d + figures.length) % figures.length;
+  lbImg.src = figures[currentIndex].dataset.full;
+  lbCaption.textContent = figures[currentIndex].dataset.caption || '';
+}
+
+figures.forEach((fig,i)=>fig.addEventListener('click',()=>openLightbox(i)));
+document.getElementById('lbClose').addEventListener('click', closeLightbox);
+document.getElementById('lbPrev').addEventListener('click', ()=>showDelta(-1));
+document.getElementById('lbNext').addEventListener('click', ()=>showDelta(1));
+lightbox.addEventListener('click', (e)=>{ if(e.target===lightbox) closeLightbox(); });
+document.addEventListener('keydown', (e)=>{
+  if(!lightbox.classList.contains('open')) return;
+  if(e.key==='Escape') closeLightbox();
+  if(e.key==='ArrowLeft') showDelta(-1);
+  if(e.key==='ArrowRight') showDelta(1);
+});
+</script>
+
+<div class="cookie-banner" id="cookieBanner">
+  <p>We use Google Fonts and, only if you activate them, embedded Spotify players. No tracking data is collected. <a href="privacy-en.html">Learn more</a></p>
+  <button id="cookieAccept">Got it</button>
+</div>
+
+</body>
+</html>

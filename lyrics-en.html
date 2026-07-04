@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lyrics — Gates of Chaos</title>
+<meta name="description" content="Lyrics to every Gates of Chaos song: Invictus, Far Down Below, Ninth Circle of Inferno, Out of Hell, Shallow, My War.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Inter:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --smoke:#08090c;--surface:#12141a;--ember:#c9a24b;--ember-dim:#dbb45c;--steel:#3f7fd6;
+  --bone:#eae6dc;--muted:#8b8a94;--line:rgba(201,162,75,.28);--maxw:900px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--smoke);color:var(--bone);font-family:'Inter',system-ui,sans-serif;font-weight:300;line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+.site-bg{position:fixed;inset:0;z-index:0;pointer-events:none;background:url('images/site-bg.jpg') center/cover no-repeat}
+@media(max-width:700px) and (orientation:portrait){
+  .site-bg{background-image:url('images/site-bg-vertical.jpg')}
+}
+.site-bg::after{content:"";position:absolute;inset:0;background:rgba(6,7,9,.55)}
+
+header{position:relative;z-index:20;border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;justify-content:space-between;padding:18px 24px;max-width:1180px;margin:0 auto}
+.brand img{height:34px;width:auto;display:block}
+.nav-links{display:flex;gap:26px;align-items:center}
+.nav-links a{font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);transition:color .25s}
+.nav-links a:hover{color:var(--ember)}
+.nav-cta{border:1px solid var(--ember);color:var(--ember)!important;padding:11px 24px;border-radius:2px;letter-spacing:.1em;font-weight:700;transition:all .25s}
+.nav-cta:hover{background:var(--ember);color:var(--smoke)!important}
+.burger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:0;padding:6px}
+.burger span{width:24px;height:2px;background:var(--ember);transition:.3s}
+
+main{position:relative;z-index:2}
+.hero-mini{padding:90px 0 50px;text-align:center}
+.eyebrow{font-family:'Space Mono';font-size:.72rem;letter-spacing:.35em;text-transform:uppercase;color:var(--steel);display:block;margin-bottom:16px}
+.hero-mini h1{font-family:'Cinzel';font-size:clamp(2.2rem,6vw,3.4rem);font-weight:700;letter-spacing:.03em}
+.hero-mini p{color:var(--muted);max-width:520px;margin:16px auto 0;font-size:.98rem}
+
+.lyrics-list{padding-bottom:90px}
+.lyric-item{border:1px solid var(--line);border-radius:3px;margin-bottom:14px;overflow:hidden;background:rgba(18,20,26,.5);transition:border-color .3s}
+.lyric-item.open{border-color:var(--ember)}
+.lyric-head{
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+  padding:22px 26px;cursor:pointer;background:none;border:0;width:100%;text-align:left;color:var(--bone);
+}
+.lyric-head .info{display:flex;flex-direction:column;gap:4px}
+.lyric-head .ep{font-family:'Space Mono';font-size:.64rem;letter-spacing:.16em;text-transform:uppercase;color:var(--steel)}
+.lyric-head .title{font-family:'Cinzel';font-size:1.15rem;font-weight:600;letter-spacing:.02em}
+.lyric-head .chevron{
+  width:28px;height:28px;flex-shrink:0;border:1px solid var(--line);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;transition:transform .35s,border-color .3s;color:var(--ember);
+}
+.lyric-item.open .chevron{transform:rotate(45deg);border-color:var(--ember)}
+.lyric-body{max-height:0;overflow:hidden;transition:max-height .45s ease}
+.lyric-body-inner{padding:0 26px 30px;border-top:1px solid var(--line)}
+.lyric-body-inner p{
+  color:var(--bone);font-size:1.08rem;margin:24px auto 0;white-space:pre-line;
+  text-align:center;max-width:560px;line-height:2.05;letter-spacing:.01em;
+}
+.lyric-body-inner .placeholder-note{
+  color:var(--steel);font-family:'Space Mono';font-size:.82rem;letter-spacing:.03em;
+  font-style:normal;padding:14px 16px;border:1px dashed var(--line);border-radius:3px;
+}
+.lyric-body-inner .stanza-it{color:var(--steel-text,var(--bone));font-style:italic;opacity:.92}
+
+footer{position:relative;z-index:2;padding:44px 24px;text-align:center;border-top:1px solid var(--line)}
+footer .meta{color:var(--muted);font-family:'Space Mono';font-size:.72rem;letter-spacing:.08em}
+
+.cookie-banner{
+  position:fixed;left:0;right:0;bottom:0;z-index:80;background:rgba(10,11,14,.97);backdrop-filter:blur(10px);
+  border-top:1px solid var(--line);padding:18px 24px;display:flex;align-items:center;justify-content:center;
+  gap:20px;flex-wrap:wrap;transform:translateY(110%);transition:transform .4s ease;
+}
+.cookie-banner.show{transform:translateY(0)}
+.cookie-banner p{color:var(--muted);font-size:.84rem;max-width:640px;line-height:1.5}
+.cookie-banner p a{color:var(--steel)}
+.cookie-banner button{
+  font-family:'Space Mono';font-size:.76rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  padding:11px 26px;border-radius:2px;border:1px solid var(--ember);background:var(--ember);color:var(--smoke);cursor:pointer;flex-shrink:0;
+}
+
+@media(max-width:760px){
+  .nav-links{
+    position:fixed;top:0;right:-100%;height:100vh;width:74%;max-width:320px;flex-direction:column;justify-content:center;
+    gap:34px;background:rgba(12,11,10,.98);backdrop-filter:blur(16px);border-left:1px solid var(--line);
+    transition:right .4s cubic-bezier(.4,0,.2,1);z-index:55;
+  }
+  .nav-links.open{right:0}
+  .nav-links a{font-size:1rem}
+  .burger{display:flex;z-index:60}
+  .burger.x span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+  .burger.x span:nth-child(2){opacity:0}
+  .burger.x span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+  .lyric-head{padding:18px 18px}
+  .lyric-body-inner{padding:0 18px 24px}
+}
+</style>
+</head>
+<body>
+<div class="site-bg"></div>
+
+<header>
+  <nav class="nav">
+    <a href="index-en.html" class="brand" aria-label="Gates of Chaos — home"><img src="images/logo-nav.png" alt="Gates of Chaos"></a>
+    <div class="nav-links" id="navlinks">
+      <a href="index-en.html#tour">Live</a>
+      <a href="index-en.html#news">News</a>
+      <a href="index-en.html#music">Music</a>
+      <a href="index-en.html#band">Band</a>
+      <a href="merch-en.html">Merch</a>
+      <a href="index-en.html#social">Social</a>
+      <a href="index-en.html#contact" class="nav-cta">Booking</a>
+      <a href="lyrics.html" class="lang-switch">IT</a>
+    </div>
+    <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </nav>
+</header>
+
+<main>
+  <div class="hero-mini">
+    <span class="eyebrow">Lyrics</span>
+    <h1>Our Words</h1>
+    <p>Six songs, one journey through chaos. Click on a title to read the full lyrics.</p>
+  </div>
+
+  <div class="wrap">
+    <div class="lyrics-list" id="lyricsList">
+
+      <article class="lyric-item">
+        <button class="lyric-head">
+          <span class="info"><span class="ep">Invictus · 2023</span><span class="title">Invictus</span></span>
+          <span class="chevron">+</span>
+        </button>
+        <div class="lyric-body"><div class="lyric-body-inner">
+<p>Non v’è! Notte si tenebrosa!
+D’annientare la luce dell’uomo!
+
+
+Stranger, I know that I'm a stranger in this land!
+A world that runs, that I can't understand
+I try to write my rules and not to fly away, to make my way
+Beyond my eyes,
+all the earth flows, is so fast that seems so far
+whose power I can use to rise my head
+an answer i’ve been searching all my life!
+
+I walk around
+with my heart that tries to find out
+that secret that seems to be worth a thousand lives
+I don't know what I can do to save my life anymore
+One day
+I read about a man who seems to have
+Have found that strength
+this man, so proud and so full of regrets 
+
+No matters not how strait the gate
+how full of  punishment our lives
+I am the master of my fate
+I am the captain of my soul
+
+So that's all
+a change of perspective
+Is this that answer?
+That power I was looking for is here
+the power to rebel
+it is inside me, around me
+Change is a circle
+don't wait for someone to save you
+you bear this burden
+so save yourself,
+the choice is yours
+this is the secret for getting up and not falling down
+
+No matters not how strait the gate
+how full of  punishment our lives
+I am the master of my fate
+I am the captain of my soul
+</p>
+        </div></div>
+      </article>
+
+      <article class="lyric-item">
+        <button class="lyric-head">
+          <span class="info"><span class="ep">Invictus · 2023</span><span class="title">Far Down Below</span></span>
+          <span class="chevron">+</span>
+        </button>
+        <div class="lyric-body"><div class="lyric-body-inner">
+<p>Far down below
+Where tides cease to flow
+There is a poor soul
+chained up alone
+And she cried, for liberty
+Each night and day
+Since too many moons now
+
+Profondo
+Nell’anima, il terrore
+Ma c’è una luce
+che brilla
+Laggiù in fondo al mare
+Perduta in un forziere
+Profondo
+Nell’animo, il dolore
+
+Sangue sparso tra gli abissi
+Grida perse nell’oscurità
+Rinnega il sol
+Dimenticato ormai
+Da tempo immemore
+Dimenticato ormai
+Da tempo immemore
+
+Now that you feel lost
+Believe in you
+For you have the power
+To unchain your mind
+Rise to the surface
+and slay the demon
+That’s haunting and
+Dragging you down
+Don’t cast your mortal coil
+in a cage of shivering fears
+That drowns your heart in regret
+
+Profondo
+Nell’anima, il fervore
+E’ quella luce
+che brilla
+In te, in fondo al cuore
+In gioia e dolore
+
+Sincero
+Nel cuore brucia l’amore
+Nel velo
+Che scopre e uccide il dolore
+Dell’anima
+</p>
+        </div></div>
+      </article>
+
+      <article class="lyric-item">
+        <button class="lyric-head">
+          <span class="info"><span class="ep">Invictus · 2023</span><span class="title">The Ninth Circle of Inferno</span></span>
+          <span class="chevron">+</span>
+        </button>
+        <div class="lyric-body"><div class="lyric-body-inner">
+<p>What once beautiful
+had turned to beast
+With three sinners one per mouth
+bat-like wings
+freezing the Cocytus
+With six eyes weeping blood
+on three chins
+Chins of Judas, Brutus, Cassius in pain
+traitors of who were most good 
+
+Per me si va ne la città dolente
+Ne l'etterno dolor
+Tra la perduta gente
+
+The banners of the king of hell
+Advancing towards us now
+Look ahead of yourself
+Cause lucifer is here
+    
+My essence shattered as he stood by me
+Not dead and not alive I saw it there
+While I shivered in fear
+
+In this lake 
+Where there is no remorse
+I pity you, poor souls, stuck here
+Left to suffer on and on 
+
+Per me si va ne la città dolente
+Ne l'etterno dolor
+Tra la perduta gente
+
+The banners of the king of hell
+Advancing towards us now
+Look ahead of yourself
+Cause lucifer is here
+
+The banners of the king of hell
+Advancing towards us now
+Look ahead of yourself
+Cause lucifer is here
+The journey of mankind
+To save one man’s soul
+From hell to heaven
+A divine comedy!</p>
+        </div></div>
+      </article>
+
+      <article class="lyric-item">
+        <button class="lyric-head">
+          <span class="info"><span class="ep">Out of Hell · 2025</span><span class="title">Out of Hell</span></span>
+          <span class="chevron">+</span>
+        </button>
+        <div class="lyric-body"><div class="lyric-body-inner">
+<p>Chaos, desolation in this land
+Blood of my brothers in my hands
+Madness that drove all us insane
+Virus that's numbing all my brain
+Per sepulchra regionum
+Coget omnes ante thronum
+Death of the spirit all around
+Ghosts are driving this ghost town
+Machines learning to be free
+We have buried the heart's key
+Per sepulchra regionum
+Coget omnes ante thronum
+Re di terribil maestà
+Che per l'uomo sofferente al fine
+Guida in ragion della tua via
+Affinchè io non mi perda mai più
+
+Instrumental
+
+Re di terribil maestà
+Che per l'uomo sofferente al fine
+Guida in ragion della tua via
+Affinchè io non mi perda mai più
+
+And through millenia
+One word will summon
+All of our souls
+To lead them 
+Out of Hell!
+Out of Hell!
+Out of Hell!
+Out of Hell!
+</p>
+        </div></div>
+      </article>
+
+      <article class="lyric-item">
+        <button class="lyric-head">
+          <span class="info"><span class="ep">Out of Hell · 2025</span><span class="title">Shallow</span></span>
+          <span class="chevron">+</span>
+        </button>
+        <div class="lyric-body"><div class="lyric-body-inner">
+<p>[My friend, forgive me my mistake, 
+I left you far behind
+Now traveling through this tranquil land alone
+The doubts consume my mind, 
+were you an evil entity
+A prehistoric thief draining my life?
+
+Each step I take 
+Weighs heavier on me
+
+A freedom once ensured by pain
+Replaced by satisfaction's chains
+An alien drifting through this plain
+Will sorrow save me once again?
+I battled fears throughout my life
+But found no merit in those fights
+A pointless struggle to survive
+Consumed again by endless nights
+
+But you, stood always by my side throughout my empty life
+The only one who shared my internal strife
+A guiding star to reach, 
+when everything else fails
+A muse of passion blowing wind into my sails
+
+Gazing within
+No spirit left in me
+
+Oblio sento
+Empie parole
+In fondo, al buio
+Ho spento il sole
+
+*
+
+A freedom once ensured by pain
+Replaced by satisfaction's chains
+In search of peace forsake the flame
+Amidst the colors lost my aim
+I left the darkness for the light
+But couldn’t reach the promised height
+Now stranded on these lifeless shores
+A shallow shell without a soul
+
+So let my fate do what it wills
+Unleash the torrents, raze the hills
+Internal waste consumed all cares
+The afterlife can have my tears</p>
+        </div></div>
+      </article>
+
+      <article class="lyric-item">
+        <button class="lyric-head">
+          <span class="info"><span class="ep">My War · 2025</span><span class="title">My War</span></span>
+          <span class="chevron">+</span>
+        </button>
+        <div class="lyric-body"><div class="lyric-body-inner">
+<p>Dies irae dies illa
+Solvet saeclum in favilla
+Teste David cum sibilla
+Mors stupebit et natura
+Cum resurget creatura
+Judicanti responsura
+
+
+In darkness I lie 
+As a phantom, a wraith 
+Feeling stuck in this void 
+From this hell I'll escape 
+
+The silence is deafening 
+My ears 
+
+The sirens won't stop 
+And their guns will shoot 
+We lost the war 
+With our hands 
+
+In this bunker of steel 
+With a gun in my hand 
+Here my fate is sealed 
+Hear me scream 'til the end 
+
+My stomach convulsing 
+My heart is pulsing 
+I blacked out again 
+
+With a bullet as friend 
+I won't get out of here alive 
+
+And I hear a song speaking to me 
+Through the pitch black night 
+And my endless sorrow
+
+Shoot! Shoot! 
+Hear me cry 
+Die! Die! 
+Let me fight 
+Shoot! shoot!
+Hear me cry 
+Die! 
+This is a war 
+I'm fighting by myself, here 
+This is my pain 
+You cannot comprehend 
+So let me live 
+My life as I command 
+And let me die 
+Without pain and regrets, yeah
+Dies irae dies illa 
+Qua resurget ex favilla 
+Judicandus homo reus 
+Huic ergo parce, Deus
+
+The beast is here 
+He came to bring me home 
+Far away from the battle in my soul
+
+Not a guide but a deceiver 
+Shackled me to the floor 
+Burning in this great pure evil 
+Hell I’m all alone
+
+Nell’odio e nel rimpianto più mi perderò
+Da questo limbo eterno io rinascerò
+
+The silence in me 
+A reflection of sin 
+From the depths of the abyss 
+I will rise I won't yield 
+
+My sword is defeating all my 
+Foes 
+Before I wake up
+With such sweat on my hands 
+Was it all a dream again? 
+
+I am awake and am still in my room 
+But the walls painted now 
+And a blood-soaked doom
+And earth below my feet is falling 
+My headache won't stop and the pills won't help 
+The god I lost came for revenge
+
+Shoot! Shoot! 
+Hear me cry 
+Die! Die! 
+Let me fight 
+Shoot! shoot!
+Hear me cry 
+Die! 
+This is a war 
+I'm fighting by myself, here 
+This is my pain 
+You cannot comprehend 
+So let me live 
+My life as I command 
+And let me die 
+Without pain and regrets, yeah
+
+Dies irae dies illa 
+Qua resurget ex favilla 
+Judicandus homo reus 
+Huic ergo parce, Deus
+
+Lacrimosa dies illa 
+Qua resurget ex favilla 
+Judicandus homo reus 
+Huic ergo parce, Deus
+</p>
+        </div></div>
+      </article>
+
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="meta">© 2026 Gates of Chaos — All rights reserved · Lyrics and music by Gates of Chaos</div>
+</footer>
+
+<div class="cookie-banner" id="cookieBanner">
+  <p>We use Google Fonts and, only if you activate them, embedded Spotify players. No tracking data is collected. <a href="privacy-en.html">Learn more</a></p>
+  <button id="cookieAccept">Got it</button>
+</div>
+
+<script>
+const burger=document.getElementById('burger');
+const links=document.getElementById('navlinks');
+burger.addEventListener('click',()=>{burger.classList.toggle('x');links.classList.toggle('open')});
+links.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{burger.classList.remove('x');links.classList.remove('open')}));
+
+// accordion testi
+document.querySelectorAll('.lyric-item').forEach(item=>{
+  const head = item.querySelector('.lyric-head');
+  const body = item.querySelector('.lyric-body');
+  head.addEventListener('click', ()=>{
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.lyric-item.open').forEach(other=>{
+      if(other!==item){
+        other.classList.remove('open');
+        other.querySelector('.lyric-body').style.maxHeight = null;
+      }
+    });
+    if(isOpen){
+      item.classList.remove('open');
+      body.style.maxHeight = null;
+    } else {
+      item.classList.add('open');
+      body.style.maxHeight = body.scrollHeight + 'px';
+      setTimeout(()=>item.scrollIntoView({behavior:'smooth', block:'start'}), 200);
+    }
+  });
+});
+
+const cookieBanner = document.getElementById('cookieBanner');
+const cookieAccept = document.getElementById('cookieAccept');
+if(cookieBanner && !localStorage.getItem('gocCookieConsent')){
+  setTimeout(()=>cookieBanner.classList.add('show'), 600);
+}
+if(cookieAccept){
+  cookieAccept.addEventListener('click', ()=>{
+    localStorage.setItem('gocCookieConsent','1');
+    cookieBanner.classList.remove('show');
+  });
+}
+</script>
+</body>
+</html>

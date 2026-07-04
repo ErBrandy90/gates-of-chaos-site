@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Privacy & Cookie — Gates of Chaos</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Inter:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --smoke:#08090c;--surface:#12141a;--ember:#c9a24b;--steel:#3f7fd6;--bone:#eae6dc;--muted:#8b8a94;--line:rgba(201,162,75,.28);--maxw:820px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--smoke);color:var(--bone);font-family:'Inter',system-ui,sans-serif;font-weight:300;line-height:1.7;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%}
+a{color:var(--steel)}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+.site-bg{position:fixed;inset:0;z-index:0;pointer-events:none;background:url('images/site-bg.jpg') center/cover no-repeat}
+@media(max-width:700px) and (orientation:portrait){
+  .site-bg{background-image:url('images/site-bg-vertical.jpg')}
+}
+.site-bg::after{content:"";position:absolute;inset:0;background:rgba(6,7,9,.6)}
+header{position:relative;z-index:5;padding:22px 24px;display:flex;justify-content:space-between;align-items:center;max-width:1180px;margin:0 auto;border-bottom:1px solid var(--line)}
+header img{height:32px}
+header a.back{font-family:'Space Mono';font-size:.76rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);border:1px solid var(--line);padding:9px 18px;border-radius:2px}
+header a.back:hover{color:var(--ember);border-color:var(--ember)}
+main{position:relative;z-index:2;padding:70px 0 90px}
+h1{font-family:'Cinzel';font-size:clamp(1.8rem,5vw,2.6rem);font-weight:700;margin-bottom:10px}
+.updated{font-family:'Space Mono';font-size:.74rem;color:var(--muted);letter-spacing:.05em;margin-bottom:44px;display:block}
+h2{font-family:'Cinzel';font-size:1.2rem;font-weight:600;margin:40px 0 14px;color:var(--ember)}
+p{color:var(--bone);margin-bottom:14px;font-size:.98rem}
+ul{margin:10px 0 14px 20px}
+li{margin-bottom:8px;font-size:.96rem}
+strong{color:var(--bone);font-weight:600}
+footer{position:relative;z-index:2;padding:32px 24px;text-align:center;border-top:1px solid var(--line);color:var(--muted);font-family:'Space Mono';font-size:.7rem}
+</style>
+</head>
+<body>
+<div class="site-bg"></div>
+<header>
+  <a href="index-en.html"><img src="images/logo-nav.png" alt="Gates of Chaos"></a>
+  <a href="index-en.html" class="back">Back to home</a>
+  <a href="privacy.html" class="back" style="margin-left:10px">IT</a>
+</header>
+<main>
+  <div class="wrap">
+    <h1>Privacy &amp; Cookie Policy</h1>
+    <span class="updated">Last updated: July 2026</span>
+
+    <p>This page describes how the official Gates of Chaos website handles visitors' personal data and which external tools are used. We manage the site ourselves, without using analytics or advertising tracking systems.</p>
+
+    <h2>Data controller</h2>
+    <p>Gates of Chaos, Rome (Italy). For any request regarding your data, you can write to <a href="mailto:gatesofchaosband@gmail.com">gatesofchaosband@gmail.com</a>.</p>
+
+    <h2>Data collected</h2>
+    <p>The site does not use profiling cookies or analytics/tracking tools. We do not automatically collect visitors' personal data.</p>
+
+    <h2>Newsletter</h2>
+    <p>The newsletter signup form opens your email client with a pre-filled message addressed to us: the address you send is manually added to our contact list. You can request removal at any time by writing to the address above.</p>
+
+    <h2>Third-party services</h2>
+    <p>The site integrates a few external services, each subject to its own privacy policy:</p>
+    <ul>
+      <li><strong>Google Fonts</strong> — the site's typefaces are loaded from Google's servers. This means your IP address is sent to Google when the page loads.</li>
+      <li><strong>Spotify</strong> — the players embedded in the Music section are loaded <em>only if you click the play button</em>, not when the page loads. Once activated, Spotify may set its own cookies according to its policy.</li>
+      <li><strong>Bandcamp, Facebook, Instagram</strong> — these links lead to independent external platforms, each with its own privacy policy.</li>
+    </ul>
+
+    <h2>Your rights</h2>
+    <p>You have the right to access, correct or request deletion of your data (for example your email in our contact list) at any time, by writing to <a href="mailto:gatesofchaosband@gmail.com">gatesofchaosband@gmail.com</a>.</p>
+
+    <h2>Changes</h2>
+    <p>This policy may be updated in the future, for example if an online store or traffic analysis tools are added. In that case the update date at the top of the page will be changed accordingly.</p>
+  </div>
+</main>
+<footer>© 2026 Gates of Chaos</footer>
+</body>
+</html>
