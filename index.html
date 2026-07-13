@@ -202,6 +202,20 @@ header.scrolled{background:rgba(10,9,8,.86);backdrop-filter:blur(14px);border-bo
 
 .tour-note{text-align:center;color:var(--muted);font-size:.9rem;margin-top:30px;font-family:'Space Mono';letter-spacing:.05em}
 
+.past-toggle{
+  display:flex;align-items:center;gap:10px;margin:26px auto 0;padding:12px 22px;
+  background:none;border:1px solid var(--line);border-radius:3px;color:var(--muted);
+  font-family:'Space Mono';font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;
+  cursor:pointer;transition:border-color .25s,color .25s;
+}
+.past-toggle:hover{border-color:var(--ember);color:var(--ember)}
+.past-chevron{font-size:1rem;line-height:1;transition:transform .3s}
+.past-toggle.open .past-chevron{transform:rotate(45deg)}
+.past-shows{max-height:0;overflow:hidden;transition:max-height .4s ease,margin-top .4s ease;margin-top:0}
+.past-shows.open{margin-top:18px}
+.past-shows .gig{opacity:.55}
+.past-badge{color:var(--muted)}
+
 /* ---------- news ---------- */
 .news-list{max-width:780px;margin:0 auto}
 .news-item{
@@ -462,20 +476,6 @@ footer .meta{color:var(--muted);font-family:'Space Mono';font-size:.72rem;letter
     </div>
 
     <div class="gig reveal has-poster">
-      <div class="gig-date"><div class="d">11</div><div class="m">Lug 2026</div></div>
-      <div class="gig-info">
-        <h3>Elevate Festival</h3>
-        <span class="place">Art on the Road, Via Monti Lepini km 51,600, Latina</span>
-        <span class="with">con Ivory Moon · Sailing to Nowhere</span>
-      </div>
-      <button class="poster-thumb" data-poster="images/poster-elevatefestival.jpg" data-caption="Elevate Festival · 11 luglio 2026, Latina" aria-label="Vedi locandina Elevate Festival">
-        <img src="images/poster-elevatefestival.jpg" alt="">
-        <span>Locandina</span>
-      </button>
-      <div class="gig-badge">Live</div>
-    </div>
-
-    <div class="gig reveal has-poster">
       <div class="gig-date"><div class="d">25</div><div class="m">Lug 2026</div></div>
       <div class="gig-info">
         <h3>Moto Rock Fest — The Pass of Rock, Petrohan</h3>
@@ -504,6 +504,25 @@ footer .meta{color:var(--muted);font-family:'Space Mono';font-size:.72rem;letter
     </div>
 
     <p class="tour-note">Vuoi portarci al tuo evento? → <a href="#contact" style="color:var(--ember)">scrivici</a></p>
+
+    <button class="past-toggle" id="pastToggle" type="button" aria-expanded="false" aria-controls="pastShows">
+      <span>Show passati</span><span class="past-chevron">+</span>
+    </button>
+    <div class="past-shows" id="pastShows">
+      <div class="gig has-poster">
+        <div class="gig-date"><div class="d">11</div><div class="m">Lug 2026</div></div>
+        <div class="gig-info">
+          <h3>Elevate Festival</h3>
+          <span class="place">Art on the Road, Via Monti Lepini km 51,600, Latina</span>
+          <span class="with">con Ivory Moon · Sailing to Nowhere</span>
+        </div>
+        <button class="poster-thumb" data-poster="images/poster-elevatefestival.jpg" data-caption="Elevate Festival · 11 luglio 2026, Latina" aria-label="Vedi locandina Elevate Festival">
+          <img src="images/poster-elevatefestival.jpg" alt="">
+          <span>Locandina</span>
+        </button>
+        <div class="gig-badge past-badge">Concluso</div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -518,13 +537,6 @@ footer .meta{color:var(--muted);font-family:'Space Mono';font-size:.72rem;letter
     </div>
 
     <div class="news-list">
-      <article class="news-item reveal">
-        <span class="news-date mono">11 Lug 2026</span>
-        <div class="news-body">
-          <h3>Live all'Elevate Festival, Latina</h3>
-          <p>Saliamo sul palco con gli Ivory Moon e i Sailing to Nowhere per l'Elevate Records Festival all'Art On The Road di Latina.</p>
-        </div>
-      </article>
       <article class="news-item reveal">
         <span class="news-date mono">25 Lug 2026</span>
         <div class="news-body">
@@ -829,6 +841,18 @@ document.querySelectorAll('.release[data-spotify]').forEach(card=>{
     slot.scrollIntoView({behavior:'smooth', block:'nearest'});
   });
 });
+
+// show passati (toggle)
+const pastToggle = document.getElementById('pastToggle');
+const pastShows = document.getElementById('pastShows');
+if(pastToggle && pastShows){
+  pastToggle.addEventListener('click', () => {
+    const isOpen = pastToggle.classList.toggle('open');
+    pastShows.classList.toggle('open', isOpen);
+    pastShows.style.maxHeight = isOpen ? pastShows.scrollHeight + 'px' : null;
+    pastToggle.setAttribute('aria-expanded', String(isOpen));
+  });
+}
 
 // nav scroll state
 const header=document.getElementById('site-header');
